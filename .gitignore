@@ -1,0 +1,8 @@
+*.ilk
+*.pdb
+*.opensdf
+*.sdf
+*.suo
+src/CountLine.sdf
+src/CountLine/Debug
+src/CountLine/Release
