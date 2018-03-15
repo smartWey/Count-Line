@@ -15,6 +15,7 @@ public:
 	~CountLine();
 
 	void allCountLineSum();
+	void setBtnEnable(bool bEnable);
 
 public slots:
 	void on_pushButton_add_clicked();
@@ -23,6 +24,7 @@ public slots:
 	void onDeleteActionTrigger();
 	void onClearActionTrigger();
 	void on_tableWidget_filePath_customContextMenuRequested(QPoint);
+	void on_tableWidget_filePath_itemSelectionChanged();
 
 private:
 	QMenu* _pRightMenu;

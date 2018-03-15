@@ -48,6 +48,7 @@ void CountLine::on_pushButton_add_clicked()
 	{
 		ui.tableWidget_filePath->setRowCount(++iRow);
 		ui.tableWidget_filePath->setItem(iRow - 1, 0, new QTableWidgetItem(listFilePath.at(i)));
+		ui.tableWidget_filePath->setItem(iRow - 1, 1, new QTableWidgetItem(""));
 	}
 	ui.tableWidget_filePath->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
 	ui.tableWidget_filePath->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
@@ -68,6 +69,7 @@ void CountLine::on_pushButton_count_clicked()
 	}
 	_pStatisticsThread->setFilePathVec(_vecFilePath);
 	_pStatisticsThread->start();
+	setBtnEnable(false);
 }
 
 void CountLine::onProgressLabel(int iProgress)
@@ -75,9 +77,11 @@ void CountLine::onProgressLabel(int iProgress)
 	ui.label_progress->setText(QString::number(iProgress) + "%");
 	if (iProgress == 100)
 	{
+		setBtnEnable(true);
 		ui.label_progress->setText(QString::fromLocal8Bit("Íê³É"));
 		allCountLineSum();
 		ui.tableWidget_countLine->clearContents();
+		ui.tableWidget_countLine->setRowCount(0);
 		int iRow = 0;
 		for (std::map<std::string, int>::iterator itr = _mapCountLine.begin(); itr != _mapCountLine.end(); itr++)
 		{
@@ -111,6 +115,8 @@ void CountLine::onDeleteActionTrigger()
 	ui.tableWidget_filePath->removeRow(ui.tableWidget_filePath->currentRow());
 	if (ui.tableWidget_filePath->rowCount() == 0)
 	{
+		ui.tableWidget_countLine->clearContents();
+		ui.tableWidget_countLine->setRowCount(0);
 		ui.tableWidget_filePath->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 		ui.tableWidget_filePath->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
 	}
@@ -120,6 +126,8 @@ void CountLine::onClearActionTrigger()
 {
 	ui.tableWidget_filePath->clearContents();
 	ui.tableWidget_filePath->setRowCount(0);
+	ui.tableWidget_countLine->clearContents();
+	ui.tableWidget_countLine->setRowCount(0);
 	ui.tableWidget_filePath->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 	ui.tableWidget_filePath->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
 }
@@ -128,4 +136,36 @@ void CountLine::on_tableWidget_filePath_customContextMenuRequested(QPoint pos)
 {
 	QPoint qpos = QCursor::pos();
 	_pRightMenu->exec(qpos);
+}
+
+void CountLine::on_tableWidget_filePath_itemSelectionChanged()
+{
+	int iCurRow = ui.tableWidget_filePath->currentItem()->row();
+	if (_mapAllCountLine.size() != 0)
+	{
+		std::map<std::string, std::map<std::string, int>>::iterator itrLine = _mapAllCountLine.find(ui.tableWidget_filePath->item(iCurRow, 0)->text().toLocal8Bit().data());
+		if (itrLine != _mapAllCountLine.end())
+		{
+			ui.tableWidget_countLine->clearContents();
+			ui.tableWidget_countLine->setRowCount(0);
+			int iRow = 0;
+			for (std::map<std::string, int>::iterator itr = itrLine->second.begin(); itr != itrLine->second.end(); itr++)
+			{
+				ui.tableWidget_countLine->setRowCount(++iRow);
+				ui.tableWidget_countLine->setItem(iRow - 1, 0, new QTableWidgetItem(QString::fromLocal8Bit(itr->first.c_str())));
+				ui.tableWidget_countLine->setItem(iRow - 1, 1, new QTableWidgetItem(QString::number(itr->second)));
+				ui.tableWidget_countLine->item(iRow - 1, 0)->setFlags(Qt::NoItemFlags);
+				ui.tableWidget_countLine->item(iRow - 1, 0)->setTextAlignment(Qt::AlignCenter);
+				ui.tableWidget_countLine->item(iRow - 1, 1)->setTextAlignment(Qt::AlignCenter);
+			}
+		}
+	}
+}
+
+void CountLine::setBtnEnable(bool bEnable)
+{
+	ui.pushButton_add->setEnabled(bEnable);
+	ui.pushButton_count->setEnabled(bEnable);
+	ui.tableWidget_filePath->setEnabled(bEnable);
+	ui.tableWidget_countLine->setEnabled(bEnable);
 }
