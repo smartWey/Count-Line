@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CountLine_t {
-    QByteArrayData data[10];
-    char stringdata0[230];
+    QByteArrayData data[11];
+    char stringdata0[239];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,7 +38,8 @@ QT_MOC_LITERAL(5, 81, 9), // "iProgress"
 QT_MOC_LITERAL(6, 91, 21), // "onDeleteActionTrigger"
 QT_MOC_LITERAL(7, 113, 20), // "onClearActionTrigger"
 QT_MOC_LITERAL(8, 134, 50), // "on_tableWidget_filePath_custo..."
-QT_MOC_LITERAL(9, 185, 44) // "on_tableWidget_filePath_itemS..."
+QT_MOC_LITERAL(9, 185, 35), // "on_tableWidget_filePath_itemC..."
+QT_MOC_LITERAL(10, 221, 17) // "QTableWidgetItem*"
 
     },
     "CountLine\0on_pushButton_add_clicked\0"
@@ -46,7 +47,8 @@ QT_MOC_LITERAL(9, 185, 44) // "on_tableWidget_filePath_itemS..."
     "onProgressLabel\0iProgress\0"
     "onDeleteActionTrigger\0onClearActionTrigger\0"
     "on_tableWidget_filePath_customContextMenuRequested\0"
-    "on_tableWidget_filePath_itemSelectionChanged"
+    "on_tableWidget_filePath_itemClicked\0"
+    "QTableWidgetItem*"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +72,7 @@ static const uint qt_meta_data_CountLine[] = {
        6,    0,   54,    2, 0x0a /* Public */,
        7,    0,   55,    2, 0x0a /* Public */,
        8,    1,   56,    2, 0x0a /* Public */,
-       9,    0,   59,    2, 0x0a /* Public */,
+       9,    1,   59,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,7 +81,7 @@ static const uint qt_meta_data_CountLine[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QPoint,    2,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 10,    2,
 
        0        // eod
 };
@@ -96,7 +98,7 @@ void CountLine::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 3: _t->onDeleteActionTrigger(); break;
         case 4: _t->onClearActionTrigger(); break;
         case 5: _t->on_tableWidget_filePath_customContextMenuRequested((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
-        case 6: _t->on_tableWidget_filePath_itemSelectionChanged(); break;
+        case 6: _t->on_tableWidget_filePath_itemClicked((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     }

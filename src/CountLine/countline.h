@@ -24,7 +24,7 @@ public slots:
 	void onDeleteActionTrigger();
 	void onClearActionTrigger();
 	void on_tableWidget_filePath_customContextMenuRequested(QPoint);
-	void on_tableWidget_filePath_itemSelectionChanged();
+	void on_tableWidget_filePath_itemClicked(QTableWidgetItem*);
 
 private:
 	QMenu* _pRightMenu;

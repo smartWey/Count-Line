@@ -138,7 +138,7 @@ void CountLine::on_tableWidget_filePath_customContextMenuRequested(QPoint pos)
 	_pRightMenu->exec(qpos);
 }
 
-void CountLine::on_tableWidget_filePath_itemSelectionChanged()
+void CountLine::on_tableWidget_filePath_itemClicked(QTableWidgetItem *item)
 {
 	int iCurRow = ui.tableWidget_filePath->currentItem()->row();
 	if (_mapAllCountLine.size() != 0)
@@ -158,6 +158,11 @@ void CountLine::on_tableWidget_filePath_itemSelectionChanged()
 				ui.tableWidget_countLine->item(iRow - 1, 0)->setTextAlignment(Qt::AlignCenter);
 				ui.tableWidget_countLine->item(iRow - 1, 1)->setTextAlignment(Qt::AlignCenter);
 			}
+		}
+		else
+		{
+			ui.tableWidget_countLine->clearContents();
+			ui.tableWidget_countLine->setRowCount(0);
 		}
 	}
 }
